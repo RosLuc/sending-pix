@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
 import { PostgresConfigModule } from '../../../config/database/postgres/config.module';
 import { PostgresConfigService } from '../../../config/database/postgres/config.service';
+import { Users } from '../../../models/users/entities/users.entity';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { PostgresConfigService } from '../../../config/database/postgres/config.
           username: postgresConfigService.user,
           password: postgresConfigService.password,
           database: postgresConfigService.name,
-          entities: [],
+          migrations: [],
+          entities: [Users],
         }),
     }),
   ],
