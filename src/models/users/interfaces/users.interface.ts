@@ -1,3 +1,5 @@
+import { IKey } from '../../keys/interfaces/keys.interface';
+
 export interface IUser {
   id?: string;
   name: string;
@@ -5,4 +7,5 @@ export interface IUser {
   telephone: string;
   createdAt?: Date;
   updatedAt?: Date;
+  keys?: IKey[];
 }

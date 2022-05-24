@@ -4,13 +4,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryColumn,
-  OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { Keys } from '../../keys/entities/keys.entity';
+import { Users } from '../../users/entities/users.entity';
 
 @Entity()
-export class Users {
+export class Keys {
   constructor() {
     this.id = uuid();
   }
@@ -19,13 +20,7 @@ export class Users {
   id: string;
 
   @Column()
-  name: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  telephone: string;
+  value: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -33,6 +28,7 @@ export class Users {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @OneToMany(() => Keys, (key) => key.user)
-  keys: Keys[];
+  @JoinColumn({ name: 'owner_user_id' })
+  @ManyToOne(() => Users, (user) => user.keys)
+  user: Users;
 }
