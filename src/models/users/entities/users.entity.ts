@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Keys } from '../../keys/entities/keys.entity';
+import { Transactions } from '../../transactions/entities/transactions.entity';
 
 @Entity()
 export class Users {
@@ -35,4 +36,10 @@ export class Users {
 
   @OneToMany(() => Keys, (key) => key.user)
   keys: Keys[];
+
+  @OneToMany(() => Transactions, (transaction) => transaction.senderUser)
+  sentTransactions: Transactions[];
+
+  @OneToMany(() => Transactions, (transaction) => transaction.receiverUser)
+  receivedTransactions: Transactions[];
 }

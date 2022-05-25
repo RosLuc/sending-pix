@@ -4,6 +4,7 @@ import { PostgresConfigModule } from './config/database/postgres/config.module';
 import { PostgresModule } from './providers/database/postgres/provider.module';
 import { UsersModule } from './models/users/users.module';
 import { KeysModule } from './models/keys/keys.module';
+import { TransactionsModule } from './models/transactions/transactions.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { KeysModule } from './models/keys/keys.module';
     PostgresModule,
     UsersModule,
     KeysModule,
+    TransactionsModule,
   ],
 })
 export class AppModule {}
