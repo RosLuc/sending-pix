@@ -1,3 +1,4 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import {
   BadRequestException,
   Injectable,
@@ -18,6 +19,7 @@ export class TransactionsService {
     private keysRepository: KeysRepository,
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
+    private mailService: MailerService,
   ) {}
 
   async register(userId: string, { key, value }: ITransactionRequest) {
@@ -47,6 +49,35 @@ export class TransactionsService {
       });
 
       await this.transactionsRepository.save(newTransaction);
+
+      const currentDate = new Date().toLocaleDateString('pt-br');
+      const currentTime = new Date().toLocaleTimeString('pt-br');
+
+      await this.mailService.sendMail({
+        to: userExist.email,
+        subject: 'Transação enviada com sucesso',
+        html:
+          '<h4>Transação enviada com sucesso!</h4>' +
+          `<p>Destinatario: ${keyExist.user.name}</p>` +
+          `<p>valor: ${value.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          })}</p>` +
+          `<p>Data: ${currentDate} - ${currentTime}</p>`,
+      });
+
+      await this.mailService.sendMail({
+        to: keyExist.user.email,
+        subject: 'Transação recebida com sucesso',
+        html:
+          '<h4>Transação recebida com sucesso!</h4>' +
+          `<p>Remetente: ${userExist.name}</p>` +
+          `<p>valor: ${value.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          })}</p>` +
+          `<p>Data: ${currentDate} - ${currentTime}</p>`,
+      });
 
       return newTransaction;
     } catch (err) {

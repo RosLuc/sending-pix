@@ -23,6 +23,7 @@
     "migration:revert": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:revert"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.6.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.1",
     "@nestjs/core": "^8.0.0",
@@ -32,6 +33,7 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.1",
     "joi": "^17.6.0",
+    "nodemailer": "^6.7.5",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

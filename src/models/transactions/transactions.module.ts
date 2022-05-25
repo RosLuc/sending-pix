@@ -5,6 +5,7 @@ import { UsersRepository } from '../users/users.repository';
 import { TransactionsRepository } from './transactions.repository';
 import { TransactionsService } from './transactions.service';
 import { TransactionsController } from './transactions.controller';
+import { EmailModule } from '../../providers/email/provider.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TransactionsController } from './transactions.controller';
       UsersRepository,
       KeysRepository,
     ]),
+    EmailModule,
   ],
   providers: [TransactionsService],
   controllers: [TransactionsController],
