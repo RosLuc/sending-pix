@@ -2,12 +2,12 @@ import { v4 as uuid } from 'uuid';
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { UsersRepository } from './users.repository';
-import { UsersService } from './users.service';
 import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { UsersService } from '../../models/users/users.service';
+import { UsersRepository } from '../../models/users/users.repository';
 
 describe('UsersService', () => {
   let service: UsersService;

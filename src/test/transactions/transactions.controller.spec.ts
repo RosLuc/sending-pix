@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TransactionsController } from './transactions.controller';
-import { TransactionsService } from './transactions.service';
+import { TransactionsController } from '../../models/transactions/transactions.controller';
+import { TransactionsService } from '../../models/transactions/transactions.service';
 
 describe('TransactionsController', () => {
   let controller: TransactionsController;

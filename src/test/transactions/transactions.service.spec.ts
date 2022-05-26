@@ -2,16 +2,16 @@ import { v4 as uuid } from 'uuid';
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { UsersRepository } from '../users/users.repository';
-import { TransactionsService } from './transactions.service';
-import { KeysRepository } from '../keys/keys.repository';
-import { TransactionsRepository } from './transactions.repository';
 import { MailerService } from '@nestjs-modules/mailer';
 import {
   BadRequestException,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { TransactionsService } from '../../models/transactions/transactions.service';
+import { UsersRepository } from '../../models/users/users.repository';
+import { KeysRepository } from '../../models/keys/keys.repository';
+import { TransactionsRepository } from '../../models/transactions/transactions.repository';
 
 describe('TransactionsService', () => {
   let service: TransactionsService;

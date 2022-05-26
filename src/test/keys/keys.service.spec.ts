@@ -1,15 +1,15 @@
 import { v4 as uuid } from 'uuid';
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { KeysService } from './keys.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { UsersRepository } from '../users/users.repository';
-import { KeysRepository } from './keys.repository';
 import {
   BadRequestException,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { KeysService } from '../../models/keys/keys.service';
+import { KeysRepository } from '../../models/keys/keys.repository';
+import { UsersRepository } from '../../models/users/users.repository';
 
 describe('KeysService', () => {
   let service: KeysService;
