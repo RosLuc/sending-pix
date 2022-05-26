@@ -4,7 +4,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
 import { UsersService } from './users.service';
-import { BadRequestException } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -95,8 +98,22 @@ describe('UsersService', () => {
     await expect(
       async () => await service.create(newUser),
     ).rejects.toThrowError(BadRequestException);
+  });
 
-    mockUsersRepository.findOne.mockReset();
+  it('Create user - Internal server error exists', async () => {
+    const newUser = {
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      telephone: faker.phone.phoneNumber(),
+    };
+
+    mockUsersRepository.save.mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    await expect(
+      async () => await service.create(newUser),
+    ).rejects.toThrowError(InternalServerErrorException);
   });
 
   it('List user - successful', async () => {

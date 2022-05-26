@@ -33,17 +33,16 @@ export class KeysService {
         value: newKey.value,
       },
     });
-    if (!!keyAlreadyExist) throw new BadRequestException('key already exists');
+    if (!!keyAlreadyExist) throw new BadRequestException('Key already exists');
 
     try {
       const key = this.keysRepository.create({ ...newKey, user: userExist });
 
-      await this.keysRepository.save(key);
+      const keySaved = await this.keysRepository.save(key);
 
-      key.user = undefined;
-      return key;
+      keySaved.user = undefined;
+      return keySaved;
     } catch (err) {
-      console.log(err);
       throw new InternalServerErrorException();
     }
   }
