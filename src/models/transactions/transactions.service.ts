@@ -2,6 +2,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -48,7 +49,9 @@ export class TransactionsService {
         receiverUser: keyExist.user,
       });
 
-      await this.transactionsRepository.save(newTransaction);
+      const transactionSaved = await this.transactionsRepository.save(
+        newTransaction,
+      );
 
       const currentDate = new Date().toLocaleDateString('pt-br');
       const currentTime = new Date().toLocaleTimeString('pt-br');
@@ -79,9 +82,9 @@ export class TransactionsService {
           `<p>Data: ${currentDate} - ${currentTime}</p>`,
       });
 
-      return newTransaction;
+      return transactionSaved;
     } catch (err) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
